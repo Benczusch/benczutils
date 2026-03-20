@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "benczutils"
+version = "0.1.0"
+description = "A collection of utilities I use for coding challanges"
+readme = "README.md"
+requires-python = ">=3.8"
+authors = [
+  {name = "Benczusch", email = "benczusch@gmail.com"}
+]
+keywords = ["algorithms", "rosalind", "utilities"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+dependencies = [
+    "numpy>=1.20.0",
+]
+
+[project.urls]
+"Homepage" = "https://github.com/Benczusch/benczutils"
+"Bug Tracker" = "https://github.com/Benczusch/benczutils/issues"
+
+[tool.setuptools.packages.find]
+where = ["src"]
