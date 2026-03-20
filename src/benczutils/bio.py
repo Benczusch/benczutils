@@ -2,6 +2,8 @@ import requests
 
 def getFasta(protId):
     result = requests.get(f"http://www.uniprot.org/uniprot/{protId}.fasta")
+    if result.status_code != 200:
+        raise Exception(f"Failed to fetch FASTA for {protId}: {result.status_code}")
 
     return readFasta(result.text)
 
