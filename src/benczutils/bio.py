@@ -20,3 +20,42 @@ def readFasta(text):
             genes[current] += line
     
     return genes
+
+class MotifNotation:
+    def __init__(self, notation_type, content):
+        # notation type: 1 - positive ('A' or '[AB]')
+        #                2 - negative ('{C}')
+        self.notation_type = notation_type
+        self.content = content
+    def check(self, char):
+        if self.notation_type == 1:
+            return char in self.content
+        else:
+            return char not in self.content
+
+class Motif:
+    def __init__(self, motif_string):
+        self.motif_list = []
+        string_working = list(motif_string)
+        while len(string_working) > 0:
+            nextChar = string_working.pop(0)
+            if nextChar == '{':
+                segmentEnd = string_working.index('}')
+                segment = string_working[:segmentEnd]
+                string_working = string_working[segmentEnd + 1:]
+                self.motif_list.append(MotifNotation(2, segment))
+            elif nextChar == '[':
+                segmentEnd = string_working.index(']')
+                segment = string_working[:segmentEnd]
+                string_working = string_working[segmentEnd + 1:]
+                self.motif_list.append(MotifNotation(1, segment))
+            else:
+                self.motif_list.append(MotifNotation(1, [nextChar]))
+        self.motif_length = len(self.motif_list)
+    def check(self, comparison):
+        if len(comparison) != self.motif_length:
+            return False
+        for i in range(self.motif_length):
+            if not self.motif_list[i].check(comparison[i]):
+                return False
+        return True
