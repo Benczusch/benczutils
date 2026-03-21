@@ -21,6 +21,35 @@ def readFasta(text):
     
     return genes
 
+_RNA_RNA_pairs = {"A" : "U", "U" : "A", "G" : "C", "C" : "G"}
+_DNA_DNA_pairs = {"A" : "T", "T" : "A", "G" : "C", "C" : "G"}
+_DNA_RNA_pairs = {"A" : "U", "T" : "A", "G" : "C", "C" : "G"}
+_RNA_DNA_pairs = {"A" : "T", "U" : "A", "G" : "C", "C" : "G"}
+
+def complement_Dna2Dna(dna):
+    complement = ["."] * len(dna)
+    for i in range(len(dna)):
+        complement[i] = _DNA_DNA_pairs[dna[-i-1]]
+    return complement
+
+def complement_Dna2Rna(dna):
+    complement = ["."] * len(dna)
+    for i in range(len(dna)):
+        complement[i] = _DNA_RNA_pairs[dna[-i-1]]
+    return complement
+
+def complement_Rna2Dna(dna):
+    complement = ["."] * len(dna)
+    for i in range(len(dna)):
+        complement[i] = _RNA_DNA_pairs[dna[-i-1]]
+    return complement
+
+def complement_Rna2Rna(dna):
+    complement = ["."] * len(dna)
+    for i in range(len(dna)):
+        complement[i] = _RNA_RNA_pairs[dna[-i-1]]
+    return complement
+
 # Stop Codon: X
 CODON_TABLE = {
     "UUU": "F",      "CUU": "L",      "AUU": "I",      "GUU": "V",
